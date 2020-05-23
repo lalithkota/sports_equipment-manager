@@ -1,0 +1,27 @@
+.btn-pad {
+    margin-right: 45px;
+}
+
+.btn-trim{
+    margin-right: -5px
+}
+
+.edit_box{
+  border-style: groove;
+  border-width: 2px;
+  padding: 15px;
+}
+
+.nav-link{
+	font-size:14px
+}
+
+img{
+	color: white;
+	font-size: 14px
+}
+
+.row{
+	font-size: 14px;
+}
+

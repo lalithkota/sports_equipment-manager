@@ -1,0 +1,116 @@
+<html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          img {
+                  border-radius: 50%;  
+              }
+        </style>
+        <title>Sports Room</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static '/css/style.css'%}">
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css'%}">
+    <script src="{% static 'sportsEquipment/detail.js' %}"></script>
+    <script src="{% static 'sportsEquipment/delete.js' %}"></script>
+    <body>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+          <img src="/media/profile_pics/IIIT-B_logo copy.jpg" style="max-height:50px"/>
+          <a class="navbar-brand nav-link" href="{% url 'sportsEquipment:home' %}" style="font-size:14px">Sportsroom<br>IIITB</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarsExample02">
+
+            {% if user.is_staff %}
+              <ul class="navbar-nav " style="margin-right: 900px">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:pendingRequest' %}">Pending Request <span class="sr-only">(current)</span></a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:approvedRequest' %}">Processed Request <span class="sr-only">(current)</span></a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:addEquip' %}">Add Equipment <span class="sr-only">(current)</span></a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:viewEquipList' %}">View Equipment <span class="sr-only">(current)</span></a>
+              </li>
+              <!--<li class="nav-item">-->
+              <!--<li class="nav-item active">-->
+                <!--<a class="nav-link" href="#">View requests <span class="sr-only">(current)</span></a>-->
+              <!--</li>-->
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:penalty' %}">Check Penalty <span class="sr-only">(current)</span></a>
+              </li>
+
+            </ul>
+            {% else %}
+              <ul class="navbar-nav " style="margin-right: 1000px" >
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:eqpRequest' %}">Request Equipment <span class="sr-only">(current)</span></a>
+              </li>
+              <!--<li class="nav-item">-->
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sportsEquipment:viewRequest' %}">View Requests <span class="sr-only">(current)</span></a>
+              </li>
+              {% block penalty %}
+
+            {%  endblock%}
+              
+            </ul>
+            {% endif %}
+
+            {% block rightbar %}
+
+            {%  endblock%}
+
+             <!--  <div class ="profImg">     
+                    <img  src="/media/{{ userProfile.profile_pic }}" style="width:50px" alt="{{ user }}"/>
+                    {% if user.is_authenticated %}
+                    </div> 
+                    <div class="dropdown"> -->
+                    <!-- <a class="nav-link" href="{% url 'login:logout' %}">Logout</a>
+                      {% else %}
+                    <a class="nav-link" href="{% url 'login:user_login' %}">Login</a>
+                      {% endif %}
+   -->
+                    
+                    <!-- <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" style="color: white"></button> -->
+                   <!--  <ul class="dropdown-menu">
+                    {% if user.is_authenticated %}
+                      <li><a class="nav-link" href="{% url 'login:logout' %}">Logout</a></li>
+                      <li><a class="nav-link" href="#">Hello, {{ user.username }}</a></li>
+                    {% else %}
+                      <li><a class="nav-link" href="{% url 'login:user_login' %}">Login</a></li>
+                      <li><a class="nav-link" href="#">Hello, {{ user.username }}</a></li>
+                    {% endif %}
+                    </ul> -->
+<!-- </div> -->
+            
+
+              </div>
+          </div>
+        </nav>
+
+        <div class="container">
+
+            {% block body %}
+
+            {%  endblock%}
+
+        </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,94 @@
+{% extends 'MasterLayout/baseLayout.html' %}
+<%from django.conf.settings import MEDIA_URL%>
+
+{% block rightbar %}
+
+              <div class ="profImg">     
+                    <img  src="/media/{{ userProfile.profile_pic }}" style="width:50px" alt="{{ user }}"/>
+                    {% if user.is_authenticated %}
+                    </div> 
+                    <div class="dropdown">
+                    <!-- <a class="nav-link" href="{% url 'login:logout' %}">Logout</a>
+                      {% else %}
+                    <a class="nav-link" href="{% url 'login:user_login' %}">Login</a>
+                      {% endif %}
+   -->
+                    
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" style="color: white"></button>
+                    <!-- <span class="caret"></span></button> -->
+                    <ul class="dropdown-menu">
+                    {% if user.is_authenticated %}
+                      <li><a class="nav-link" href="{% url 'login:logout' %}">Logout</a></li>
+                      <li><a class="nav-link" href="#">Hello, {{ user.username }}</a></li>
+                    {% else %}
+                      <li><a class="nav-link" href="{% url 'login:user_login' %}">Login</a></li>
+                      <li><a class="nav-link" href="#">Hello, {{ user.username }}</a></li>
+                    {% endif %}
+                    </ul>
+</div>
+            {%  endblock%}
+            
+{% block body %}
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+
+
+
+
+
+
+  <div class="container" style="font-size: 14px">
+    <br>
+
+
+    <h2>Check Penalty</h2>
+    <p>Type UserName in the input field to search the List</p>  
+    <input id="myInput" type="text" placeholder="Search..">
+    <br><br>
+
+
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>TotalPenalty</th>
+        <th>ProfilePic</th>
+    
+        
+      </tr>
+    </thead>
+
+    <tbody id="myTable">
+
+      {% for request in context %}
+
+      <tr>
+        <td>{{ request.user }}</td>
+        <td>{{ request.totalPenalty }}</td>
+
+        <td><img src="/media/{{ request.profile_pic }}" style="max-height:50px;border-radius: 20%" alt="{{request.user}}"/></td>
+
+               
+
+
+      </tr>
+
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+
+  </div>
+
+{% endblock %}

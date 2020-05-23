@@ -1,0 +1,18 @@
+{% extends "Login/base.html" %}
+{% block content %}
+
+<div class="jumbotron">
+	<h1></h1>
+	<form action="{% url 'login:otp' %}" method="POST">
+		{% csrf_token %}
+		<label for="otp">Enter Authentication Key sent to your email: </label>
+		<input type="password" name="otp" placeholder="Enter otp">
+		<input type="hidden" name="otp_no" value= {{otp_no}}>
+		<input type="hidden" name="email" value= {{email}}>
+		<input type="submit" name="" value="submit">
+	</form>
+	
+	
+</div>
+
+{% endblock %}

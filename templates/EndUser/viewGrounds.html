@@ -1,0 +1,25 @@
+{% extends 'EndUser/advlayout.html' %}
+
+{% block body %}
+
+  {% for each_ground_name, each_ground_times in groundList %}
+    <h2>Ground Name: {{each_ground_name}}</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Holder Id</th>
+          <th>Time of Holding</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for person, persons_time in each_ground_times %}
+          <tr>
+            <td>{{person}}</td>
+            <td>From {{persons_time.0}} to {{persons_time.1}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+
+{% endblock%}
