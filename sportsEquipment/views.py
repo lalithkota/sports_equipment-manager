@@ -223,7 +223,7 @@ def viewInventory(request):
 	context = list(Equipments.objects.order_by('-eqpId'))
 	for req in context:
 		req.eqpQuantityTaken = req.eqpQuantity - req.eqpQuantityTaken
-	print(context)
+	# print(context)
 	# print("No of requests: ", len(context))
 	return render(request, 'AdminUser/viewEquipList.html', {'context': context,'userProfile': userProfile});
 
@@ -259,16 +259,16 @@ def processRequest(request):
 	if(int(isAcceptRequest) == 1):
 		eqp = penReq.eqp
 		requestedQuantity = penReq.quantity
-		print(requestedQuantity)
-		print(eqp.eqpQuantity - eqp.eqpQuantityTaken)
+		# print(requestedQuantity)
+		# print(eqp.eqpQuantity - eqp.eqpQuantityTaken)
 		if(requestedQuantity <= (eqp.eqpQuantity - eqp.eqpQuantityTaken)) :    
 			penReq.reqStatus    = 1
 			penReq.dtAvailed    = currentTime
 			penReq.dtOfExpRet   = currentTime + timedelta(days=1)
-			print("date of process")
-			print(currentTime)
-			print("date of dtOfExpRet")
-			print(currentTime + timedelta(days=1))
+			# print("date of process")
+			# print(currentTime)
+			# print("date of dtOfExpRet")
+			# print(currentTime + timedelta(days=1))
 			eqp.eqpQuantityTaken += requestedQuantity
 			insertOrUpdate(eqp)
 		else :
@@ -286,9 +286,9 @@ def processRequest(request):
 @login_required
 def processReturnRequest(request):
 	reqId = request.GET.get('reqId')
-	print(reqId)
+	# print(reqId)
 	returnRequest = EquipmentRequest.objects.get(reqId=reqId)
-	print(returnRequest)
+	# print(returnRequest)
 	currentTime = datetime.today()
 	eqp = returnRequest.eqp
 	eqp.eqpQuantityTaken -= returnRequest.quantity

@@ -177,8 +177,8 @@ LOGGING = {
             'format': '%(levelname)s %(message)s'
         },
         'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s %(filename)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format' : "%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(message)s %(filename)s",
+            'datefmt' : "%Y-%m-%d %H:%M:%S"
         },
   },
   'handlers': {
@@ -190,7 +190,7 @@ LOGGING = {
         'file': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': BASE_DIR + "/logfile",
+            'filename': BASE_DIR + "/logfile.txt",
             #'maxBytes': 50000,
             #'backupCount': 2,
             'formatter': 'standard',
