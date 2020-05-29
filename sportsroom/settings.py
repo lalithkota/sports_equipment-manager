@@ -109,7 +109,7 @@ WSGI_APPLICATION = 'sportsroom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': getDataBasePath([os.path.join(os.path.expanduser("~"),"myDb","sportsRoomDb.sqlite3"), '/myDb/sportsRoomDb.sqlite3')]),
+        'NAME': getDataBasePath([os.path.join(os.path.expanduser("~"),"myDb","sportsRoom-Db.sqlite3"), '/myDb/sportsRoom-Db.sqlite3']),
     }
 }
 
