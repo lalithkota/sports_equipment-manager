@@ -41,7 +41,10 @@ def getDataBasePath(db_paths_list=[]):
             os.system("python3 manage.py makemigrations")
             os.system("python3 manage.py migrate")
         except:
-            os.remove(db_paths_list[0])
+            try:
+                os.remove(db_paths_list[0])
+            except:
+                pass
             sys.exit("Cannot create a new database")
         return db_paths_list[0]
     return db_paths_list[is_avail-1]
