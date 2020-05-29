@@ -35,11 +35,11 @@ urlpatterns = [
     path(r'getAllEqpReqs/',apiviews.getAllEqpReqs,name='getAllEqpReqs'),
     path(r'checkAvailability/<reqId>',apiviews.checkAvailability,name='checkAvailability'),
     # API response
-    
+
     #for ground
     path(r'addGround/',views.addGround,name='addGround'),
     path(r'groundRequests/',views.groundRequests,name='groundRequests'),
-    
-    path(r'viewGrounds/',views.viewGrounds,name='viewGrounds'), 
+
+    path(r'viewGrounds/',views.viewGrounds,name='viewGrounds'),
 
 ]

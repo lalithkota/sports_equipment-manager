@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from sportsroom.for_config import getSMTPUsernamePassword, getDataBasePath
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -108,7 +109,7 @@ WSGI_APPLICATION = 'sportsroom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': getDataBasePath([os.path.join(os.path.expanduser("~"),"myDb","sportsRoomDb.sqlite3"), '/myDb/sportsRoomDb.sqlite3')]),
     }
 }
 
@@ -158,12 +159,14 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login/user_login'
 
+# HOME_DIR = os.getenv("HOME")
+# config_file_paths = [HOME_DIR+"/myConfigs/sportsRoom.conf","/myConfigs/sportsRoom.conf"]
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sportsroomforweb@gmail.com'
-EMAIL_HOST_PASSWORD = 'sports@room@iiitb'
+EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = getSMTPUsernamePassword(config_file_paths=[os.path.join(os.path.expanduser("~"),"myConfigs","sportsRoom.conf"),"/myConfigs/sportsRoom.conf"])
 
 DAILY_PENALTY = 5
 RETURN_PERIOD = 1
@@ -190,7 +193,7 @@ LOGGING = {
         'file': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': BASE_DIR + "/logfile.txt",
+            'filename': os.path.join(BASE_DIR , "logfile.txt"),
             #'maxBytes': 50000,
             #'backupCount': 2,
             'formatter': 'standard',
@@ -207,11 +210,11 @@ LOGGING = {
         #},
   },
   'loggers': {
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
+        # 'django.request': {
+        #     'handlers': ['console'],
+        #     'level': 'INFO',
+        #     'propagate': True,
+        # },
         'django': {
             'handlers': ['console'],
             'level': 'INFO',

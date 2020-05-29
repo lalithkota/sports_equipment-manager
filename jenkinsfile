@@ -1,0 +1,60 @@
+pipeline{
+    agent any
+    stages {
+        stage('Stage I - Clone from github'){
+            steps {
+                git 'https://github.com/lalithkota/sports_equipment-manager.git'
+            }
+            post{
+                success{
+                    echo 'Git Cloning Success'
+                }
+            }
+        }
+        stage('Stage II - Build'){
+            steps{
+                echo 'Building'
+            }
+            post{
+                success{
+                    echo 'Built Successful'
+                }
+            }
+        }
+        
+        stage('Stage III - Test') {
+            steps {
+                sh 'python3 manage.py test'
+            }
+            post {
+                success {
+                    echo 'Testing Successful'
+                }
+            }
+        }
+        stage('Stage IV - Make Docker Image & Push') {
+            steps{
+                script{
+                    def dockerImage=docker.build("lalithkota/sportsroom")
+                    docker.withRegistry( '', 'docker-hub-creds') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Stage V - Trigger Rundeck'){
+            steps{
+                script {
+                    step([  $class: "RundeckNotifier",
+                            includeRundeckLogs: true,
+                            jobId: "1007582b-9067-4b65-8ff2-1813c744058b",
+                            rundeckInstance: "Rundeck_inst_1",
+                            shouldFailTheBuild: true,
+                            shouldWaitForRundeckJob: false,
+                            tailLog: true])
+                }
+            }
+        }
+    }
+    
+}

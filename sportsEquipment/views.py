@@ -44,6 +44,10 @@ def insertOrUpdate(model):
 
 @login_required
 def checkAvailability(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
 	# print(request.POST)
 	reqId = request.POST['reqId']
 	# print(reqId)
@@ -60,6 +64,11 @@ def checkAvailability(request):
 
 @login_required
 def eqpRequest(request):
+	if request.user.is_staff:
+		pass
+		#return redirect("/sportsEquipment/home")
+	else:
+		pass
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	if(request.method == "POST"):
 		if(request.user.is_authenticated):
@@ -103,6 +112,11 @@ def eqpRequest(request):
 #method to add equiment by admin
 @login_required
 def addEquip(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	if(request.method=="POST"):
 		form = addEqpForm(request.POST)
@@ -110,8 +124,8 @@ def addEquip(request):
 			form.save()
 		return viewInventory(request)
 	else:
-		if(request.user.is_staff==False):
-			return redirect('/sportsEquipment/')
+		# if(request.user.is_staff==False):
+		# 	return redirect('/sportsEquipment/')
 		form = addEqpForm()
 		context ={
 			'form' : form,
@@ -123,6 +137,11 @@ def addEquip(request):
 #method to check penalty of users
 @login_required
 def penalty(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	context = list(UserProfileInfo.objects.order_by('totalPenalty'))
 	# print(context)
@@ -157,6 +176,11 @@ def penalty(request):
 #method to edit equipment list by Admin
 @login_required
 def editEquipList(request,pk):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	item = get_object_or_404(Equipments,eqpId = pk)
 
@@ -177,6 +201,11 @@ def editEquipList(request,pk):
 #method to delete a equip
 #@login_required
 def deleteEqp(request,pk):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	Equipments.objects.filter(eqpId=pk).delete()
 	items = Equipments.objects.all()
@@ -203,6 +232,11 @@ def utcToIst(lstRequest):
 #method to view request status for equipments by students
 @login_required
 def viewRequest(request):
+	if request.user.is_staff:
+		pass
+	else:
+		pass
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	user = request.user
 	# print(user)
@@ -219,6 +253,11 @@ def viewRequest(request):
 #method to view inventory
 @login_required
 def viewInventory(request):
+	if request.user.is_staff:
+		pass
+	else:
+		pass
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	context = list(Equipments.objects.order_by('-eqpId'))
 	for req in context:
@@ -234,6 +273,11 @@ def viewInventory(request):
 #method to view all pending requests to be processed by the sports room admin
 @login_required
 def pendingRequest(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	lstPendingRequest = list(EquipmentRequest.objects.filter(reqStatus = 0).order_by('user','-dtOfRequest'))
 	lstPendingRequest = utcToIst(lstPendingRequest)
@@ -243,6 +287,11 @@ def pendingRequest(request):
 #method to view all processed requests to be by the sports room admin
 @login_required
 def approvedRequest(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	lstProcessedRequest = list(EquipmentRequest.objects.filter(reqStatus__in = [1,2,3]).order_by('-dtOfRequest'))
 	lstProcessedRequest = utcToIst(lstProcessedRequest)
@@ -252,6 +301,11 @@ def approvedRequest(request):
 #method to process a pending requests by the sports room admin
 @login_required
 def processRequest(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	isAcceptRequest = request.GET.get('isAcceptRequest')
 	# print(isAcceptRequest)
 	reqId = request.GET.get('reqId')
@@ -288,6 +342,11 @@ def processRequest(request):
 #method to process return request by the sports room admin
 @login_required
 def processReturnRequest(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	reqId = request.GET.get('reqId')
 	# print(reqId)
 	returnRequest = EquipmentRequest.objects.get(reqId=reqId)
@@ -306,6 +365,11 @@ def processReturnRequest(request):
 #method to add ground
 @login_required
 def addGround(request):
+	if request.user.is_staff:
+		pass
+	else:
+		return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	if(request.method=="POST"):
 		form = addGroundForm(request.POST)
@@ -313,8 +377,8 @@ def addGround(request):
 			form.save()
 		return redirect('/sportsEquipment/viewGrounds')
 	else:
-		if(request.user.is_staff==False):
-			return redirect('/sportsEquipment/')
+		# if(request.user.is_staff==False):
+		# 	return redirect('/sportsEquipment/')
 		form = addGroundForm()
 		context ={
 			'form' : form,
@@ -349,6 +413,12 @@ def check_ground_availability(s_tm,e_tm,booked):
 
 
 def groundRequests(request):
+	if request.user.is_staff:
+		pass
+	else:
+		pass
+		#return redirect("/sportsEquipment/home")
+
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	if(request.method=="POST"):
 		form = ground_form(request.POST)
@@ -384,6 +454,11 @@ def groundRequests(request):
 
 
 def viewGrounds(request):
+	if request.user.is_staff:
+		pass
+	else:
+		pass
+		#return redirect("/sportsEquipment/home")
 	userProfile = UserProfileInfo.objects.get(user=request.user)
 	if(request.user.is_authenticated==False):
 		return redirect('/login/user_login/?next=/sportsEquipment/viewGrounds/')
