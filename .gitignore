@@ -1,0 +1,12 @@
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/migrations/
+*/*/migrations/
+.pytest_cache/
+*/.pytest_cache/
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+logfile*
+runtime*
