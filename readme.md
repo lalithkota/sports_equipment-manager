@@ -4,7 +4,7 @@ readme-v1
 ## Sec - 1: Preamble
 
 - This is part of a course project, under the course SoftwareProductionEngineering.
-- This is a web app, which can be used to manage and distribute the sports equiment and sports grounds of a entity.
+- This is a web app, which can be used to manage and distribute the sports equiment and sports grounds of an organisation.
 - Built using django-python, celery (for job scheduling, for updating penalty, and some other stuff)
 - The aim of this project is to introduce us to industry's Software Development & Operations' Toolchains, Pipelines, etc.
 - Collaborators Kartik Gupta, Lalith Kota, Swastik Shrivastava.
@@ -38,4 +38,4 @@ readme-v1
     - `redis-server`
     - `celery -A sportsroom worker -l info`
     - `celery -A sportsroom beat -l info -s ~/myDb/sportsRoom-celerybeat-schedule`
-- Instead you can simply use this [docker image](https://hub.docker.com/repository/docker/lalithkota/sportsroom)
+- Instead you can simply use this [docker image](https://hub.docker.com/r/lalithkota/sportsroom)
